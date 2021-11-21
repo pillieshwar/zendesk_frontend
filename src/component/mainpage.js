@@ -3,12 +3,11 @@ import axios from "axios";
 
 export default function MainPage() {
   const [apidata, setapidata] = React.useState([]);
-  // const dataq = axios.get(`http://localhost:8080/dataauth`);
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const res = await axios.get("http://localhost:8080/dataauth");
+        const res = await axios.get("http://localhost:8080/dataauthmultiple");
         console.log("console", res.data);
         setapidata(res.data);
       } catch (err) {
@@ -17,16 +16,11 @@ export default function MainPage() {
     }
     fetchData();
   }, []);
-
-  // useEffect(() => {
-  //   dataq.then((res) => {
-  //     console.log("console", res.data);
-  //     setapidata(res.data);
-  //   });
-  // }, []);
   return (
     <div>
-      <p>{apidata.updated_at}</p>
+      {apidata.map((ticket, index) => (
+        <p key={index}>{ticket.subject}</p>
+      ))}
     </div>
   );
 }
