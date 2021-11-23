@@ -1,8 +1,14 @@
 import React, { useEffect } from "react";
-import { Grid, GridItem } from "@chakra-ui/react";
+import { Grid, GridItem, Button, Stack } from "@chakra-ui/react";
 import LeftSideBar from "./leftsidebar";
 import Header from "./header";
 import RightSideBar from "./rightsidebar";
+import axios from "axios";
+import {
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  WarningIcon,
+} from "@chakra-ui/icons";
 
 export default function MainPage() {
   const [ticketId, setTicketId] = React.useState("");
@@ -12,6 +18,19 @@ export default function MainPage() {
   const [ticketUpdatedAt, setTicketUpdatedAt] = React.useState("");
   const [ticketStatus, setTicketStatus] = React.useState("");
   const [ticketPriority, setTicketPriority] = React.useState("");
+  const [ticketCount, setTicketCount] = React.useState("");
+
+  useEffect(() => {
+    async function fetchTicketCount() {
+      try {
+        const res = await axios.get("http://localhost:8080/ticketCount");
+        setTicketCount(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    fetchTicketCount();
+  }, []);
 
   function ticketDetails(
     id,
@@ -22,7 +41,6 @@ export default function MainPage() {
     status,
     priority
   ) {
-    console.log(requestor_id);
     setTicketId(id);
     setTicketSubject(subject);
     setTicketDescription(description);
@@ -31,6 +49,13 @@ export default function MainPage() {
     setTicketStatus(status);
     setTicketPriority(priority);
   }
+
+  const pagination = Math.ceil(ticketCount.value / 25);
+  const arr = [];
+  for (var i = 0; i < pagination; i++) {
+    arr[i] = i;
+  }
+  console.log("pagination", arr);
   return (
     <div>
       <Grid
@@ -57,39 +82,22 @@ export default function MainPage() {
             ticketPriority={ticketPriority}
           />
         </GridItem>
+        <GridItem rowSpan={1} colSpan={5}>
+          <Stack direction="row" spacing={2} align="center">
+            <Button key="back " colorScheme="teal" size="xs" variant="outline">
+              <ChevronLeftIcon />
+            </Button>
+            {arr.map((item, key) => (
+              <Button key={item} colorScheme="teal" size="xs" variant="outline">
+                {key + 1}
+              </Button>
+            ))}
+            <Button key="front" colorScheme="teal" size="xs" variant="outline">
+              <ChevronRightIcon />
+            </Button>
+          </Stack>
+        </GridItem>
       </Grid>
-      {/* <Grid
-        h="100%"
-        templateRows="repeat(2, 1fr)"
-        templateColumns="repeat(10, 1fr)"
-        gap={4}
-      >
-        <GridItem colSpan={10} rowSpam={1} bg="white">
-          <Header />
-        </GridItem>
-        <GridItem
-          h="1%"
-          //   mt="-240"
-          overflow="scroll"
-          rowSpan={1}
-          colSpan={5}
-          bg="white"
-          flex="overflow"
-        >
-          <LeftSideBar getTicketDetails={ticketDetails} />
-        </GridItem>
-        <GridItem mt="-60" rowSpan={1} colSpan={5} bg="white">
-          <RightSideBar
-            ticketId={ticketId}
-            ticketSubject={ticketSubject}
-            ticketDescription={ticketDescription}
-            ticketRequestorId={ticketRequestorId}
-            ticketUpdatedAt={ticketUpdatedAt}
-            ticketStatus={ticketStatus}
-            ticketPriority={ticketPriority}
-          />
-        </GridItem>
-      </Grid> */}
     </div>
   );
 }

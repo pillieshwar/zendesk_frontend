@@ -7,7 +7,7 @@ import { Avatar, AvatarBadge, AvatarGroup } from "@chakra-ui/react";
 import { Wrap, WrapItem } from "@chakra-ui/react";
 
 export default function RightSideBar(props) {
-  console.log(props);
+  //   console.log(props);
   return (
     <div>
       <Grid

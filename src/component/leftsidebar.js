@@ -54,7 +54,7 @@ export default function LeftSideBar(props) {
     status,
     priority
   ) {
-    console.log("left", requestor_id);
+    // console.log("left", requestor_id);
     props.getTicketDetails(
       id,
       subject,
@@ -69,7 +69,7 @@ export default function LeftSideBar(props) {
     async function fetchData() {
       try {
         const res = await axios.get("http://localhost:8080/dataauthmultiple");
-        console.log("console", res.data);
+        // console.log("console", res.data);
         setapidata(res.data);
       } catch (err) {
         console.log(err);
