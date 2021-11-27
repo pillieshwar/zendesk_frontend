@@ -1,13 +1,17 @@
-import React, { useEffect } from "react";
-import { Grid, GridItem } from "@chakra-ui/react";
-import { Box, Heading, Text } from "@chakra-ui/react";
-import { Center, Square, Circle } from "@chakra-ui/react";
-import { Divider, Badge } from "@chakra-ui/react";
-import { Avatar, AvatarBadge, AvatarGroup } from "@chakra-ui/react";
-import { Wrap, WrapItem } from "@chakra-ui/react";
+import React from "react";
+import {
+  Wrap,
+  WrapItem,
+  Avatar,
+  Divider,
+  Badge,
+  Heading,
+  Text,
+  Grid,
+  GridItem,
+} from "@chakra-ui/react";
 
 export default function RightSideBar(props) {
-  //   console.log(props);
   return (
     <div>
       <Grid
@@ -45,11 +49,13 @@ export default function RightSideBar(props) {
           <Heading ml="4" mt="3" float="left" size="xs">
             Requester Id: {props.ticketRequestorId}
           </Heading>
-          <Heading ml="4" mt="3" float="right" size="xs">
+          <Heading mr="3" mt="4" float="right" fontSize="xs" size="xs">
             {props.ticketUpdatedAt}
           </Heading>
         </GridItem>
+
         <GridItem rowSpan={1} colSpan={11}></GridItem>
+
         <GridItem rowSpan={7} colSpan={11}>
           <Text fontSize="sm" align="left">
             {props.ticketDescription}

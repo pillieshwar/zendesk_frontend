@@ -8,7 +8,6 @@ export default function MainPage() {
     async function fetchData() {
       try {
         const res = await axios.get("http://localhost:8080/dataauthmultiple");
-        console.log("console", res.data);
         setapidata(res.data);
       } catch (err) {
         console.log(err);

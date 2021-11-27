@@ -1,9 +1,7 @@
 import "./App.css";
-import MainPage from "./component/mainpage";
-import Dashboard from "./component/dashboard";
 
 import * as React from "react";
-
+import Dashboard from "./component/dashboard";
 import { ChakraProvider } from "@chakra-ui/react";
 
 function App() {
