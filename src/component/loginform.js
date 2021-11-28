@@ -6,6 +6,7 @@ import {
   FormControl,
   InputRightElement,
   Input,
+  useToast,
 } from "@chakra-ui/react";
 import Dashboard from "./dashboard";
 
@@ -27,8 +28,8 @@ export default function LoginForm() {
     });
 
     try {
-      await axios
-        .post("http://127.0.0.1:8080/tickets/pp", params, {
+      const res = await axios
+        .post("http://127.0.0.1:8080/tickets/login", params, {
           headers: {
             "content-type": "application/json",
             "Access-Control-Allow-Origin": "*",
@@ -39,7 +40,7 @@ export default function LoginForm() {
       console.log(err);
     }
   }
-
+  const toast = useToast();
   return (
     <div>
       {connectionStatus ? (
@@ -84,7 +85,21 @@ export default function LoginForm() {
                 />
               </FormControl>
 
-              <Button mt={5} colorScheme="blue" mr={3} type="submit">
+              <Button
+                mt={5}
+                colorScheme="blue"
+                mr={3}
+                type="submit"
+                onClick={() =>
+                  toast({
+                    title: "Login Again! Refresh page",
+                    description: "Enter correct credentials to get data",
+                    status: "success",
+                    duration: 7000,
+                    isClosable: true,
+                  })
+                }
+              >
                 Connect
               </Button>
             </form>
