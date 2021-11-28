@@ -2,32 +2,17 @@ import React, { useState } from "react";
 import { Grid, GridItem, Heading } from "@chakra-ui/react";
 import axios from "axios";
 import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
   Button,
   FormControl,
-  FormLabel,
   InputRightElement,
   Input,
-  //   form,
-  Flex,
-  Box,
 } from "@chakra-ui/react";
-import { useDisclosure } from "@chakra-ui/react";
 import Dashboard from "./dashboard";
 
 export default function LoginForm() {
   const [connectionStatus, setConnectionStatus] = React.useState(false);
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
   const initialRef = React.useRef();
-  const finalRef = React.useRef();
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
   const [username, setUsername] = useState("");
@@ -35,8 +20,6 @@ export default function LoginForm() {
   const [subdomain, setSubDomain] = useState("");
 
   async function handleSubmit() {
-    console.log(username, password, subdomain);
-
     const params = JSON.stringify({
       username: username,
       password: password,
@@ -44,7 +27,7 @@ export default function LoginForm() {
     });
 
     try {
-      const res = await axios
+      await axios
         .post("http://127.0.0.1:8080/tickets/pp", params, {
           headers: {
             "content-type": "application/json",
@@ -57,11 +40,8 @@ export default function LoginForm() {
     }
   }
 
-  console.log(connectionStatus);
   return (
     <div>
-      {/* {() => {
-  if (connectionStatus) { */}
       {connectionStatus ? (
         <Dashboard />
       ) : (

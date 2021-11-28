@@ -20,12 +20,6 @@ import { ViewIcon } from "@chakra-ui/icons";
 export default function LeftSideBar(props) {
   const [apidata, setapidata] = React.useState([]);
   const [ticketId, setTicketId] = React.useState("1");
-  const [ticketSubject, setTicketSubject] = React.useState("");
-  const [ticketDescription, setTicketDescription] = React.useState("");
-  const [ticketRequestorId, setTicketRequestorId] = React.useState(0);
-  const [ticketUpdatedAt, setTicketUpdatedAt] = React.useState("");
-  const [ticketStatus, setTicketStatus] = React.useState("");
-  const [ticketPriority, setTicketPriority] = React.useState("");
 
   useEffect(() => {
     async function fetchData() {
@@ -45,22 +39,8 @@ export default function LeftSideBar(props) {
     fetchData();
   }, [props]);
 
-  function setDisplayTicket(
-    id,
-    subject,
-    description,
-    requestor_id,
-    updated_at,
-    status,
-    priority
-  ) {
+  function setDisplayTicket(id) {
     setTicketId(id);
-    setTicketSubject(subject);
-    setTicketDescription(description);
-    setTicketRequestorId(requestor_id);
-    setTicketUpdatedAt(updated_at);
-    setTicketStatus(status);
-    setTicketPriority(priority);
   }
 
   return (
@@ -105,17 +85,7 @@ export default function LeftSideBar(props) {
                       colorScheme="red"
                       aria-label="view ticket"
                       icon={<ViewIcon />}
-                      onClick={() =>
-                        setDisplayTicket(
-                          ticket.id,
-                          ticket.subject,
-                          ticket.description,
-                          ticket.requester_id,
-                          ticket.updated_at,
-                          ticket.status,
-                          ticket.priority
-                        )
-                      }
+                      onClick={() => setDisplayTicket(ticket.id)}
                     />
                   </Td>
                 </Tr>
@@ -124,15 +94,7 @@ export default function LeftSideBar(props) {
           </Table>
         </GridItem>
         <GridItem overflow="scroll" rowSpan={9} colSpan={5} bg="white">
-          <RightSideBar
-            ticketId={ticketId}
-            ticketSubject={ticketSubject}
-            ticketDescription={ticketDescription}
-            ticketRequestorId={ticketRequestorId}
-            ticketUpdatedAt={ticketUpdatedAt}
-            ticketStatus={ticketStatus}
-            ticketPriority={ticketPriority}
-          />
+          <RightSideBar ticketId={ticketId} />
         </GridItem>
       </Grid>
     </div>
