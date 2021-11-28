@@ -20,19 +20,12 @@ import { ViewIcon } from "@chakra-ui/icons";
 export default function LeftSideBar(props) {
   const [apidata, setapidata] = React.useState([]);
   const [ticketId, setTicketId] = React.useState("1");
-  const [ticketSubject, setTicketSubject] = React.useState(
-    "Sample ticket: Meet the ticket"
-  );
-  const [ticketDescription, setTicketDescription] = React.useState(
-    "Hi there, I’m sending an email because I’m having a problem setting up your new product. Can you help me troubleshoot? Thanks, The Customer"
-  );
-  const [ticketRequestorId, setTicketRequestorId] =
-    React.useState(421868781852);
-  const [ticketUpdatedAt, setTicketUpdatedAt] = React.useState(
-    "Sat Nov 20 02:54:24 PST 2021"
-  );
-  const [ticketStatus, setTicketStatus] = React.useState("OPEN");
-  const [ticketPriority, setTicketPriority] = React.useState("NORMAL");
+  const [ticketSubject, setTicketSubject] = React.useState("");
+  const [ticketDescription, setTicketDescription] = React.useState("");
+  const [ticketRequestorId, setTicketRequestorId] = React.useState(0);
+  const [ticketUpdatedAt, setTicketUpdatedAt] = React.useState("");
+  const [ticketStatus, setTicketStatus] = React.useState("");
+  const [ticketPriority, setTicketPriority] = React.useState("");
 
   useEffect(() => {
     async function fetchData() {
@@ -52,7 +45,7 @@ export default function LeftSideBar(props) {
     fetchData();
   }, [props]);
 
-  function displayTicket(
+  function setDisplayTicket(
     id,
     subject,
     description,
@@ -113,7 +106,7 @@ export default function LeftSideBar(props) {
                       aria-label="view ticket"
                       icon={<ViewIcon />}
                       onClick={() =>
-                        displayTicket(
+                        setDisplayTicket(
                           ticket.id,
                           ticket.subject,
                           ticket.description,
