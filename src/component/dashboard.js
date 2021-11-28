@@ -10,6 +10,7 @@ export default function Dashboard() {
   const [page, setPage] = React.useState(1);
   const [quarter, setQuarter] = React.useState(1);
   const [pageNumber, setPageNum] = React.useState(1);
+  const [viewAllPages, setViewAllPages] = React.useState(false);
 
   useEffect(() => {
     async function fetchTicketCount() {
@@ -44,6 +45,14 @@ export default function Dashboard() {
     }
   }
 
+  function allPages() {
+    if (viewAllPages === false) {
+      setViewAllPages(true);
+    } else {
+      setViewAllPages(false);
+    }
+  }
+
   const arr = [];
   const pagination = Math.ceil(ticketCount.value / 25);
   for (var i = 0; i < pagination; i++) {
@@ -64,7 +73,11 @@ export default function Dashboard() {
         </GridItem>
 
         <GridItem rowSpan={8} colSpan={10} bg="white">
-          <LeftSideBar page={page} quarter={quarter} />
+          <LeftSideBar
+            page={page}
+            quarter={quarter}
+            viewAllPages={viewAllPages}
+          />
         </GridItem>
 
         <GridItem rowSpan={1} colSpan={5}>
@@ -89,15 +102,15 @@ export default function Dashboard() {
                 {key + 1}
               </Button>
             ))}
-            {/* <Button
+            <Button
               key="front"
-              onClick={() => pageDetails(pageNumber + 1)}
+              onClick={() => allPages()}
               colorScheme="teal"
               size="xs"
               variant="outline"
             >
-              <ChevronRightIcon />
-            </Button> */}
+              View All
+            </Button>
           </Stack>
         </GridItem>
       </Grid>

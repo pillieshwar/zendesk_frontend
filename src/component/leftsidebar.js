@@ -25,7 +25,7 @@ export default function LeftSideBar(props) {
     async function fetchData() {
       try {
         const res = await axios.get(
-          "http://127.0.0.1:8080/tickets/all?page=" +
+          "http://127.0.0.1:8080/tickets/quarterall?page=" +
             props.page +
             "&quarter=" +
             props.quarter +
@@ -37,7 +37,19 @@ export default function LeftSideBar(props) {
       }
     }
     fetchData();
-  }, [props]);
+  }, [props.page, props.quarter]);
+
+  useEffect(() => {
+    async function fetchAllPages() {
+      try {
+        const res = await axios.get("http://127.0.0.1:8080/tickets/all");
+        setapidata(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    fetchAllPages();
+  }, [props.viewAllPages]);
 
   function setDisplayTicket(id) {
     setTicketId(id);
